@@ -56,7 +56,7 @@ export default () => {
         keyExtractor={(item: any) => item.key}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
-          {useNativeDriver: Platform.OS === 'ios' ? true : false},
+          {useNativeDriver: true},
         )}
         contentContainerStyle={{
           padding: SPACING,
@@ -71,6 +71,11 @@ export default () => {
           ];
 
           const scale = scrollY.interpolate({
+            inputRange,
+            outputRange: [1, 1, 1, 0],
+          });
+
+          const opacity = scrollY.interpolate({
             inputRange,
             outputRange: [1, 1, 1, 0],
           });
@@ -91,6 +96,7 @@ export default () => {
                 shadowOpacity: 1,
                 shadowRadius: 20,
                 transform: [{scale}],
+                opacity,
               }}>
               <Image
                 source={{uri: item.image}}
