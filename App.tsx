@@ -67,7 +67,14 @@ export default () => {
             -1,
             0,
             ITEM_SIZE * index,
-            ITEM_SIZE * (index + 2),
+            ITEM_SIZE * (index + 1),
+          ];
+
+          const opacityInputRange = [
+            -1,
+            0,
+            ITEM_SIZE * index,
+            ITEM_SIZE * (index + 1),
           ];
 
           const scale = scrollY.interpolate({
@@ -76,7 +83,7 @@ export default () => {
           });
 
           const opacity = scrollY.interpolate({
-            inputRange,
+            inputRange: opacityInputRange,
             outputRange: [1, 1, 1, 0],
           });
 
