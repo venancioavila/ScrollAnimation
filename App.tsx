@@ -12,6 +12,7 @@ import {
   Easing,
   SafeAreaViewBase,
   SafeAreaView,
+  Platform,
 } from 'react-native';
 const {width, height} = Dimensions.get('screen');
 import faker from 'faker';
@@ -38,6 +39,8 @@ const AVATAR_SIZE = 70;
 const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
 
 export default () => {
+  const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
   const scrollY = React.useRef(new Animated.Value(0)).current;
 
   return (
@@ -48,18 +51,18 @@ export default () => {
         style={StyleSheet.absoluteFillObject}
         blurRadius={50}
       />
-      <FlatList
+      <AnimatedFlatList
         data={DATA}
-        keyExtractor={(item) => item.key}
+        keyExtractor={(item: any) => item.key}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
-          {useNativeDriver: false},
+          {useNativeDriver: Platform.OS === 'ios' ? true : false},
         )}
         contentContainerStyle={{
           padding: SPACING,
           paddingTop: StatusBar.currentHeight || 45,
         }}
-        renderItem={({item, index}) => {
+        renderItem={({item, index}: any) => {
           const inputRange = [
             -1,
             0,
