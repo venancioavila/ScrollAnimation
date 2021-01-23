@@ -57,7 +57,7 @@ export default () => {
         )}
         contentContainerStyle={{
           padding: SPACING,
-          paddingTop: StatusBar.currentHeight,
+          paddingTop: StatusBar.currentHeight || 45,
         }}
         renderItem={({item, index}) => {
           const inputRange = [
